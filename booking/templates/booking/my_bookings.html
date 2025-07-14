@@ -1,0 +1,35 @@
+{% extends "booking/base.html" %}
+
+{% block content %}
+<h2>My Bookings</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Travel</th>
+            <th>Seats</th>
+            <th>Total Price</th>
+            <th>Date Booked</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.travel_option.source }} → {{ booking.travel_option.destination }} on {{ booking.travel_option.date_time }}</td>
+            <td>{{ booking.num_seats }}</td>
+            <td>₹{{ booking.total_price }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.status }}</td>
+            <td>
+                {% if booking.status == 'Confirmed' %}
+                <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-danger btn-sm">Cancel</a>
+                {% else %}
+                <span class="text-muted">N/A</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

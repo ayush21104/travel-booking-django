@@ -1,0 +1,15 @@
+{% extends "booking/base.html" %}
+
+{% block content %}
+<h2>Book Travel</h2>
+<p><strong>{{ travel.travel_type }}:</strong> {{ travel.source }} → {{ travel.destination }}</p>
+<p><strong>Date & Time:</strong> {{ travel.date_time }}</p>
+<p><strong>Price per seat:</strong> ₹{{ travel.price }}</p>
+<p><strong>Available seats:</strong> {{ travel.available_seats }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Confirm Booking</button>
+</form>
+{% endblock %}

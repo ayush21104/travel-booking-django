@@ -1,0 +1,37 @@
+{% extends "booking/base.html" %}
+
+{% block content %}
+<h2>Available Travel Options</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date & Time</th>
+            <th>Price</th>
+            <th>Seats</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for travel in travel_options %}
+        <tr>
+            <td>{{ travel.travel_type }}</td>
+            <td>{{ travel.source }}</td>
+            <td>{{ travel.destination }}</td>
+            <td>{{ travel.date_time }}</td>
+            <td>₹{{ travel.price }}</td>
+            <td>{{ travel.available_seats }}</td>
+            <td>
+                {% if travel.available_seats > 0 %}
+                <a class="btn btn-sm btn-success" href="{% url 'book_travel' travel.id %}">Book</a>
+                {% else %}
+                <span class="text-muted">Sold Out</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
